@@ -1,0 +1,63 @@
+:root {
+  --cell-size: 100px;
+}
+
+body {
+    background: linear-gradient(135deg, #2c9da5 0%, #142844 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  h1 {
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(22, 21, 21, 0.3);
+    margin-bottom: 20px;
+  }
+
+  .game-board {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: repeat(4, 100px);
+    gap: 15px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  }
+
+  .cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: inset 0 4px 8px rgba(0,0,0,0.1),
+                0 4px 8px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+  }
+
+  .cell:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+    box-shadow: inset 0 4px 12px rgba(0,0,0,0.2),
+                0 8px 16px rgba(0,0,0,0.3);
+  }
+
+  /* Стиль для вставленного изображения */
+  .cell img {
+    max-width: 80%;
+    max-height: 80%;
+  }

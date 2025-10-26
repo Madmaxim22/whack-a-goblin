@@ -15,7 +15,7 @@ export default (env) => {
     output: {
       path: path.resolve(__dirname, "build"),
       filename: "[name].[contenthash].js",
-      assetModuleFilename: "images/[hash][ext][query]",
+      assetModuleFilename: "assets/[hash][ext][query]",
       clean: true,
     },
     plugins: [
