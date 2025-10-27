@@ -121,7 +121,7 @@ project/
 npm test
 ```
 
-![Tests](https://github.com/Madmaxim22/whack-a-goblin/actions/workflows/ddeploy.yml/badge.svg)
+![Tests](https://github.com/Madmaxim22/whack-a-goblin/actions/workflows/deploy.yml/badge.svg)
 
 ### Запуск тестов в режиме наблюдения
 ```bash
