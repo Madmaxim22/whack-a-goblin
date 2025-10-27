@@ -2,8 +2,7 @@
 
 Проект представляет собой интерактивную браузерную игру, построенную по архитектуре MVC (Model-View-Controller).
 
-![CI](https://github.com/Madmaxim22/whack-a-goblin/actions/workflows/web.yml/badge.svg)
-![CI](https://github.com/Madmaxim22/whack-a-goblin/actions/workflows/web.yml/badge.svg)
+![CI](https://github.com/Madmaxim22/whack-a-goblin/actions/workflows/deploy.yml/badge.svg)
 
 ## 📋 Содержание
 
@@ -122,7 +121,7 @@ project/
 npm test
 ```
 
-![Tests](https://github.com/Madmaxim22/whack-a-goblin/actions/workflows/deploy-with-tests.yml/badge.svg)
+![Tests](https://github.com/Madmaxim22/whack-a-goblin/actions/workflows/ddeploy.yml/badge.svg)
 
 ### Запуск тестов в режиме наблюдения
 ```bash
@@ -133,8 +132,6 @@ npm run test:watch
 ```bash
 npm run test:coverage
 ```
-
-![Coverage](https://img.shields.io/badge/Coverage-90%25-brightgreen.svg)
 
 ### Тестируемые компоненты
 

@@ -71,8 +71,7 @@ jobs:
 
     # Шаг 5: Запуск тестов с покрытием кода
     - name: Run tests with coverage
-      run: |
-        npm run test:coverage
+      run: npm run test:coverage
 
     # Шаг 6: Сохранение отчета о покрытии как артефакта
     - name: Upload test coverage
