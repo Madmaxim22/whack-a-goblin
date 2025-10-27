@@ -26,7 +26,7 @@ jobs:
           node-version: 20.17.0
           cache: 'npm'
       - run: npm
-      - run: npm lint
+      - run: npm run lint
 
   # Задача тестирования
   test:
@@ -57,11 +57,17 @@ jobs:
 
     # Шаг 5: Запуск тестов с покрытием кода
     - name: Run tests with coverage
-      run: 
-        # Запуск тестов с генерацией отчета о покрытии
+      run: |
         npm run test:coverage -- --coverageReporters="text-summary"
-        echo "Coverage report generated"
-
+        # Проверяем, создалась ли папка coverage и её содержимое
+        echo "Checking coverage directory..."
+        ls -la
+        if [ -d "coverage" ]; then
+          echo "Coverage directory exists:"
+          ls -la coverage/
+        else
+          echo "Coverage directory NOT found!"
+        fi
     # Шаг 6: Сохранение отчета о покрытии как артефакта
     - name: Upload test coverage
       uses: actions/upload-artifact@v4
