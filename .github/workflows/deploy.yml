@@ -37,7 +37,7 @@ jobs:
 
     # Шаг 5: Запуск тестов с покрытием кода
     - name: Run tests with coverage
-      run: |
+      run: 
         # Запуск тестов с генерацией отчета о покрытии
         npm run test:coverage -- --coverageReporters="text-summary"
         echo "Coverage report generated"
