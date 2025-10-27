@@ -3,10 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Whack-a-goblin</title>
+  <title>Поймай гоблина</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <h1>Игровое поле 4x4</h1>
-  <div class="game-board" id="gameBoard"></div>
+  <div id="gameContainer">
+    <div id="score">Очки: 0</div>
+    <div id="record">Рекорд: 0</div>
+    <div id="timer">Время: 60</div>
+    <div id="gameBoard"></div>
+    <div id="buttons">
+      <button id="restartBtn">Начать заново</button>
+    </div>
+  </div>
 </body>
 </html>
