@@ -1,0 +1,92 @@
+name: Test and Deploy
+
+# Триггеры запуска workflow
+on:
+  # При пуше в ветку main
+  push:
+    branches: [ "main" ]
+  # При создании pull request в ветку main
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  # Задача тестирования
+  test:
+    name: Run Test Suite
+    runs-on: ubuntu-latest  # Запуск на последней версии Ubuntu
+    
+    steps:
+    # Шаг 1: Получение кода из репозитория
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # Шаг 2: Настройка Node.js среды
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.17.0'  # Конкретная версия Node.js для стабильности
+        cache: 'npm'  # Кэширование npm зависимостей для ускорения
+
+    # Шаг 3: Установка зависимостей
+    - name: Install dependencies
+      run: npm ci  # Используем ci для чистых установок в CI/CD
+
+    # Шаг 4: Запуск unit-тестов
+    - name: Run unit tests
+      run: npm test
+
+    # Шаг 5: Запуск тестов с покрытием кода
+    - name: Run tests with coverage
+      run: |
+        # Запуск тестов с генерацией отчета о покрытии
+        npm run test:coverage -- --coverageReporters="text-summary"
+        echo "Coverage report generated"
+
+    # Шаг 6: Сохранение отчета о покрытии как артефакта
+    - name: Upload test coverage
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report  # Имя артефакта
+        path: coverage/  # Папка с отчетом о покрытии
+        retention-days: 7  # Хранение артефакта 7 дней
+
+  # Задача сборки и деплоя (запускается только после успешного тестирования)
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    needs: test  # Зависимость: выполняется только если задача test успешна
+    # Условие: запускать только при пуше в main ветку (не при PR)
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    # Шаг 1: Получение кода (повторно для чистого состояния)
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # Шаг 2: Настройка Node.js (аналогично задаче test)
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.17.0'
+        cache: 'npm'
+
+    # Шаг 3: Установка зависимостей
+    - name: Install dependencies
+      run: npm ci
+
+    # Шаг 4: Дополнительный прогон тестов перед сборкой
+    - name: Run tests before build
+      run: npm test
+
+    # Шаг 5: Сборка проекта для production
+    - name: Build project
+      run: npm run build:prod
+
+    # Шаг 6: Деплой на GitHub Pages
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        # Автоматический токен GitHub (не требует ручной настройки)
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        # Папка с собранным проектом для публикации
+        publish_dir: ./build
