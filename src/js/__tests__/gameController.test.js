@@ -8,7 +8,7 @@ describe('GameController', () => {
 
   beforeEach(() => {
     // Мокаем DOM для кнопки Restart
-    document.body.innerHTML = `<button id="restartBtn">Restart</button>`;
+    document.body.innerHTML = '<button id="restartBtn">Restart</button>';
 
     // Мокаем модель
     mockModel = {
@@ -32,7 +32,9 @@ describe('GameController', () => {
       renderTimer: jest.fn(),
       lockField: jest.fn(),
       getCell: jest.fn((index) => ({ innerHTML: '' })),
-      cells: Array(16).fill().map((_, i) => ({ innerHTML: '', index: i })),
+      cells: Array(16).fill().map((_, i) => ({
+        innerHTML: '', index: i
+      })),
       board: document.createElement('div'), // добавьте DOM-элемент
     };
 
@@ -56,7 +58,7 @@ describe('GameController', () => {
   test('метод stop вызывает завершение игры и отображение сообщения', () => {
     // Мокаем alert и clearInterval
     jest.spyOn(window, 'alert').mockImplementation(() => {});
-    jest.spyOn(global, 'clearInterval').mockImplementation(() => {});
+    jest.spyOn(window, 'clearInterval').mockImplementation(() => {});
 
     // Запускаем игру для установки состояния
     controller.start();
@@ -87,9 +89,7 @@ describe('GameController', () => {
     cellElement.innerHTML = `<img src="${goblinImagePath}" alt="Гоблин" />`;
 
     mockView.cells[5] = cellElement;
-    const mockEvent = {
-      target: cellElement,
-    };
+    const mockEvent = { target: cellElement, };
 
     // Мокаем closest
     jest.spyOn(cellElement, 'closest').mockImplementation((selector) => {

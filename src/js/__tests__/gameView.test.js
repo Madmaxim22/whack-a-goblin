@@ -10,7 +10,7 @@ describe('GameView', () => {
       score: { textContent: '' },
       record: { textContent: '' },
       timer: { textContent: '' },
-      board: { 
+      board: {
         innerHTML: '',
         classList: {
           add: jest.fn(),
@@ -91,9 +91,9 @@ describe('GameView', () => {
   describe('createBoard', () => {
     it('должен создавать правильное количество ячеек', () => {
       const cellsCount = 9;
-      
+
       view.createBoard(cellsCount);
-      
+
       expect(mockElements.board.innerHTML).toBe('');
       expect(view.cells).toHaveLength(cellsCount);
       expect(mockElements.board.appendChild).toHaveBeenCalledTimes(cellsCount);
@@ -101,16 +101,16 @@ describe('GameView', () => {
 
     it('должен создавать ячейки с правильным классом', () => {
       view.createBoard(1);
-      
+
       const createdCell = view.cells[0];
       expect(createdCell.className).toBe('cell');
     });
 
     it('должен очищать доску перед созданием новых ячеек', () => {
       mockElements.board.innerHTML = 'existing content';
-      
+
       view.createBoard(3);
-      
+
       expect(mockElements.board.innerHTML).toBe('');
     });
   });
@@ -159,7 +159,7 @@ describe('GameView', () => {
     it('должен корректно обрабатывать большие числа', () => {
       view.renderScore(999999);
       expect(mockElements.score.textContent).toBe('Очки: 999999');
-      
+
       view.renderRecord(1000000);
       expect(mockElements.record.textContent).toBe('Рекорд: 1000000');
     });
