@@ -9,11 +9,18 @@ on:
   pull_request:
     branches: [ "main" ]
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   # Задача тестирования
   test:
     name: Run Test Suite
     runs-on: ubuntu-latest  # Запуск на последней версии Ubuntu
+    permissions:
+      contents: read
     
     steps:
     # Шаг 1: Получение кода из репозитория
@@ -57,6 +64,10 @@ jobs:
     needs: test  # Зависимость: выполняется только если задача test успешна
     # Условие: запускать только при пуше в main ветку (не при PR)
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
     
     steps:
     # Шаг 1: Получение кода (повторно для чистого состояния)
