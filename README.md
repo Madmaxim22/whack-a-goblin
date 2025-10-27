@@ -3,6 +3,7 @@
 Проект представляет собой интерактивную браузерную игру, построенную по архитектуре MVC (Model-View-Controller).
 
 ![CI](https://github.com/Madmaxim22/whack-a-goblin/actions/workflows/web.yml/badge.svg)
+![CI](https://github.com/Madmaxim22/whack-a-goblin/actions/workflows/web.yml/badge.svg)
 
 ## 📋 Содержание
 
