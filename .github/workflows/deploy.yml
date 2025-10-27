@@ -90,10 +90,14 @@ jobs:
     # Условие: запускать только при пуше в main ветку (не при PR)
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
-      contents: write
+      contents: read
       pages: write
       id-token: write
     
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
     # Шаг 1: Получение кода (повторно для чистого состояния)
     - name: Checkout code
@@ -110,19 +114,19 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    # Шаг 4: Дополнительный прогон тестов перед сборкой
-    - name: Run tests before build
-      run: npm test
-
-    # Шаг 5: Сборка проекта для production
+    # Шаг 4: Сборка проекта для production
     - name: Build project
       run: npm run build:prod
 
-    # Шаг 6: Деплой на GitHub Pages
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+    - name: Setup Pages
+      uses: actions/configure-pages@v4      
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
       with:
-        # Автоматический токен GitHub (не требует ручной настройки)
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        # Папка с собранным проектом для публикации
-        publish_dir: ./build
+        path: ./build
+
+    # Шаг 5: Деплой на GitHub Pages
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
