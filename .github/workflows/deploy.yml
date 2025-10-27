@@ -25,7 +25,6 @@ jobs:
         with:
           node-version: 20.17.0
           cache: 'npm'
-      - run: npm
       - run: npm run lint
 
   # Задача тестирования
