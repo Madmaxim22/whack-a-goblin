@@ -16,7 +16,7 @@ describe('GameView', () => {
           add: jest.fn(),
           remove: jest.fn()
         },
-        appendChild: jest.fn()
+        append: jest.fn()
       }
     };
 
@@ -96,7 +96,7 @@ describe('GameView', () => {
 
       expect(mockElements.board.innerHTML).toBe('');
       expect(view.cells).toHaveLength(cellsCount);
-      expect(mockElements.board.appendChild).toHaveBeenCalledTimes(cellsCount);
+      expect(mockElements.board.append).toHaveBeenCalledTimes(cellsCount);
     });
 
     it('должен создавать ячейки с правильным классом', () => {
