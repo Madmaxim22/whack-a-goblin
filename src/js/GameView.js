@@ -24,7 +24,7 @@ export default class GameView {
     for (let i=0; i<cellsCount; i++) {
       const cellElem = document.createElement('div');
       cellElem.className = 'cell';
-      this.board.appendChild(cellElem);
+      this.board.append(cellElem);
       this.cells.push(cellElem);
     }
   }
