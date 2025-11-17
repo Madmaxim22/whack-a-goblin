@@ -22,7 +22,7 @@ export default class GameController {
     this.model.isActive = true;
     this._showGoblin();
 
-    this.gameInterval = setInterval(() => this._showGoblin(), 1500);
+    this.gameInterval = setInterval(() => this._showGoblin(), 1000);
     this.timerInterval = setInterval(() => this._countdown(), 1000);
   }
 
