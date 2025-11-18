@@ -31,15 +31,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.17.0'  # Конкретная версия Node.js для стабильности
-          cache: 'npm'  # Кэширование npm зависимостей для ускорения
+          cache: 'yarn'  # Кэширование yarn зависимостей для ускорения
 
       # Шаг 3: Установка зависимостей
       - name: Install dependencies
-        run: npm ci  # Используем ci для чистых установок в CI/CD
+        run: yarn install # Используем ci для чистых установок в CI/CD
 
       # Шаг 4: Запуск eslint
       - name: Run eslint
-        run: npm run lint
+        run: yarn lint
 
 
   # Задача тестирования
@@ -59,19 +59,19 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20.17.0'  # Конкретная версия Node.js для стабильности
-        cache: 'npm'  # Кэширование npm зависимостей для ускорения
+        cache: 'yarn'  # Кэширование yarn зависимостей для ускорения
 
     # Шаг 3: Установка зависимостей
     - name: Install dependencies
-      run: npm ci  # Используем ci для чистых установок в CI/CD
+      run: yarn install  # Используем ci для чистых установок в CI/CD
 
     # Шаг 4: Запуск unit-тестов
     - name: Run unit tests
-      run: npm test
+      run: yarn test
 
     # Шаг 5: Запуск тестов с покрытием кода
     - name: Run tests with coverage
-      run: npm run test:coverage
+      run: yarn run test:coverage
 
     # Шаг 6: Сохранение отчета о покрытии как артефакта
     - name: Upload test coverage
@@ -107,15 +107,15 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20.17.0'
-        cache: 'npm'
+        cache: 'yarn'
 
     # Шаг 3: Установка зависимостей
     - name: Install dependencies
-      run: npm ci
+      run: yarn install
 
     # Шаг 4: Сборка проекта для production
     - name: Build project
-      run: npm run build:prod
+      run: yarn build:prod
 
     - name: Setup Pages
       uses: actions/configure-pages@v4      
