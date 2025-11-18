@@ -30,6 +30,7 @@ describe('GameController', () => {
       renderScore: jest.fn(),
       renderRecord: jest.fn(),
       renderTimer: jest.fn(),
+      renderAnimationHammerCursor: jest.fn(),
       lockField: jest.fn(),
       getCell: jest.fn((index) => ({ innerHTML: '' })),
       cells: Array(16).fill().map((_, i) => ({

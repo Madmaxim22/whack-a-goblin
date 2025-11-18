@@ -69,13 +69,21 @@ export default class GameController {
 
     if (index === this.currentGoblinCellIndex) {
       this.model.updateScore(1);
+      this.view.renderAnimationHammerCursor(true);
       this.view.renderScore(this.model.score);
       this._removeGoblin();
     }
   }
 
   _addEventListeners() {
-    this.view.board.addEventListener('click', (event) => this.handleBoardClick(event));
     document.querySelector('#restartBtn').addEventListener('click', () => this.start());
+
+    const cursor = document.getElementById('hammerCursor');
+    this.view.board.addEventListener('mousedown', (event) => this.handleBoardClick(event));
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = `${e.clientX}px`;
+      cursor.style.top = `${e.clientY}px`;
+    });
+    this.view.board.addEventListener('mouseup', () => this.view.renderAnimationHammerCursor(false));
   }
 }

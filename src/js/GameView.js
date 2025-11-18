@@ -1,9 +1,10 @@
 export default class GameView {
-  constructor({ scoreId, recordId, timerId, boardId }) {
+  constructor({ scoreId, recordId, timerId, boardId, cursorId }) {
     this.scoreElem = document.getElementById(scoreId);
     this.recordElem = document.getElementById(recordId);
     this.timerElem = document.getElementById(timerId);
     this.board = document.getElementById(boardId);
+    this.cursor = document.getElementById(cursorId);
   }
 
   renderScore(score) {
@@ -26,6 +27,14 @@ export default class GameView {
       cellElem.className = 'cell';
       this.board.append(cellElem);
       this.cells.push(cellElem);
+    }
+  }
+
+  renderAnimationHammerCursor(hit) {
+    if(hit) {
+      this.cursor.classList.add('hit');
+    } else {
+      this.cursor.classList.remove('hit');
     }
   }
 
