@@ -31,6 +31,7 @@ export default class GameController {
     clearInterval(this.timerInterval);
     this.view.lockField(true);
     this.model.updateRecord();
+
     this.view.renderRecord(this.model.record);
     this.model.isActive = false;
     alert(`Игра окончена! Ваш результат: ${this.model.score}`);
@@ -53,7 +54,7 @@ export default class GameController {
   _countdown() {
     this.model.countdown();
     this.view.renderTimer(this.model.timeLeft);
-    if (this.model.timeLeft <= 0) {
+    if (this.model.timeLeft <= 0 || this.model.missed === 5) {
       this.stop();
     }
   }
@@ -72,6 +73,8 @@ export default class GameController {
       this.view.renderAnimationHammerCursor(true);
       this.view.renderScore(this.model.score);
       this._removeGoblin();
+    } else {
+      this.model.updateMissed(1);
     }
   }
 

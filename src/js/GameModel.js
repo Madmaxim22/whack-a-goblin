@@ -4,11 +4,13 @@ export default class GameModel {
     this.record = 0;
     this.timeLeft = 60;
     this.isActive = false;
+    this.missed = 0;
   }
 
   reset() {
     this.score = 0;
     this.timeLeft = 60;
+    this.missed = 0;
   }
 
   updateScore(points) {
@@ -19,6 +21,10 @@ export default class GameModel {
     if (this.score > this.record) {
       this.record = this.score;
     }
+  }
+
+  updateMissed(points) {
+    this.missed += points;
   }
 
   countdown() {
