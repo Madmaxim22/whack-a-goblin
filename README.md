@@ -61,24 +61,24 @@ cd whack-a-goblin
 
 2. **Установите зависимости**:
 ```bash
-npm install
+yarn(npm) install
 ```
 
 3. **Запустите проект**:
 
 **Режим разработки**:
 ```bash
-npm run build:dev
+yarn(npm) run build:dev
 ```
 
 **Сборка для продакшена**:
 ```bash
-npm run build:prod
+yarn(npm) run build:prod
 ```
 
 **Запуск с локального сервера**:
 ```bash
-npm run start
+yarn(npm) run start
 ```
 
 ## 📁 Структура проекта
@@ -97,8 +97,9 @@ project/
 │   │   └── GameController.js           # Контроллер игры
 │   ├── styles/
 │   │   └── style.css                   # Стили проекта
-│   ├── assets/
-│   │   └── goblin.png                  # Картинки
+│   ├── assets/                         # Картинки
+│   │   ├── goblin.png          
+│   │   └── hammer-idle.png        
 │   ├── __mocks__/
 │   │   └── fileMock.js                 # Мок для картинок
 │   ├── index.js                        # Точка входа
@@ -118,19 +119,19 @@ project/
 
 ### Запуск тестов
 ```bash
-npm test
+yarn(npm) test
 ```
 
 ![Tests](https://github.com/Madmaxim22/whack-a-goblin/actions/workflows/deploy.yml/badge.svg)
 
 ### Запуск тестов в режиме наблюдения
 ```bash
-npm run test:watch
+yarn(npm) run test:watch
 ```
 
 ### Покрытие кода тестами
 ```bash
-npm run test:coverage
+yarn(npm) run test:coverage
 ```
 
 ### Тестируемые компоненты
