@@ -15,6 +15,7 @@ export default class GameController {
   start() {
     this.model.reset();
     this.view.renderScore(this.model.score);
+    this.view.renderMissed(this.model.missed);
     this.view.renderRecord(this.model.record);
     this.view.renderTimer(this.model.timeLeft);
     this.view.lockField(false);
@@ -34,15 +35,30 @@ export default class GameController {
 
     this.view.renderRecord(this.model.record);
     this.model.isActive = false;
-    alert(`Игра окончена! Ваш результат: ${this.model.score}`);
+    this.view.showModalMessage(`Игра окончена! Ваш результат: ${this.model.score}`);
   }
 
   _showGoblin() {
     this._removeGoblin();
-    const emptyCells = this.view.cells.filter((_, i) => i !== this.currentGoblinCellIndex);
-    const index = Math.floor(Math.random() * emptyCells.length);
-    this.currentGoblinCellIndex = index;
-    this.view.getCell(index).innerHTML = `<img src="${goblinImagePath}" alt="Гоблин" />`;
+    // Создаем массив возможных индексов
+    const possibleIndices = this.view.cells.map((_, i) => i);
+
+    // Удаляем текущий индекс гоблина, чтобы избежать повторного появления
+    if (this.currentGoblinCellIndex !== null) {
+      const currentIdx = this.currentGoblinCellIndex;
+      const indexToRemove = possibleIndices.indexOf(currentIdx);
+      if (indexToRemove !== -1) {
+        possibleIndices.splice(indexToRemove, 1);
+      }
+    }
+
+    // Выбираем случайный индекс из оставшихся
+    const randomIndex = possibleIndices[Math.floor(Math.random() * possibleIndices.length)];
+
+    this.currentGoblinCellIndex = randomIndex;
+    this.view.getCell(randomIndex).innerHTML = `<img src="${goblinImagePath}" alt="Гоблин" />`;
+    this.model.updateMissed(1);
+    this.view.renderMissed(this.model.missed);
   }
 
   _removeGoblin() {
@@ -54,7 +70,7 @@ export default class GameController {
   _countdown() {
     this.model.countdown();
     this.view.renderTimer(this.model.timeLeft);
-    if (this.model.timeLeft <= 0 || this.model.missed === 5) {
+    if (this.model.timeLeft <= 0 || this.model.missed === 6) {
       this.stop();
     }
   }
@@ -73,8 +89,11 @@ export default class GameController {
       this.view.renderAnimationHammerCursor(true);
       this.view.renderScore(this.model.score);
       this._removeGoblin();
+      this.model.resetMissed();
+      this.view.renderMissed(this.model.missed);
     } else {
       this.model.updateMissed(1);
+      this.view.renderMissed(this.model.missed);
     }
   }
 
@@ -88,5 +107,8 @@ export default class GameController {
       cursor.style.top = `${e.clientY}px`;
     });
     this.view.board.addEventListener('mouseup', () => this.view.renderAnimationHammerCursor(false));
+
+    const closeBtn = document.getElementById('closeModal');
+    closeBtn.addEventListener('click', () => this.view.closeModalMessage());
   }
 }

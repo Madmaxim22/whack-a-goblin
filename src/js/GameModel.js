@@ -27,6 +27,10 @@ export default class GameModel {
     this.missed += points;
   }
 
+  resetMissed() {
+    this.missed = 0;
+  }
+
   countdown() {
     this.timeLeft--;
   }

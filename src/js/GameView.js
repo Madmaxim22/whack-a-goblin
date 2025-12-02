@@ -1,14 +1,21 @@
 export default class GameView {
-  constructor({ scoreId, recordId, timerId, boardId, cursorId }) {
+  constructor({ scoreId, missedId, recordId, timerId, boardId, cursorId }) {
     this.scoreElem = document.getElementById(scoreId);
+    this.missedElem = document.getElementById(missedId);
     this.recordElem = document.getElementById(recordId);
     this.timerElem = document.getElementById(timerId);
     this.board = document.getElementById(boardId);
     this.cursor = document.getElementById(cursorId);
+    this.modalMessage = document.getElementById('modalMessage');
+    this.modalText = document.getElementById('modalText');
   }
 
   renderScore(score) {
     this.scoreElem.textContent = `Очки: ${score}`;
+  }
+
+  renderMissed(missed) {
+    this.missedElem.textContent = `Пропуски: ${missed}`;
   }
 
   renderRecord(record) {
@@ -44,6 +51,16 @@ export default class GameView {
     } else {
       this.board.classList.remove('blocked');
     }
+  }
+
+  showModalMessage(message) {
+    this.modalText.textContent = message;
+    this.modalMessage.classList.remove('modal-hidden');
+
+  }
+
+  closeModalMessage() {
+    this.modalMessage.classList.add('modal-hidden');
   }
 
   getCell(index) {

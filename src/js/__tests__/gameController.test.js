@@ -8,7 +8,7 @@ describe('GameController', () => {
 
   beforeEach(() => {
     // Мокаем DOM для кнопки Restart
-    document.body.innerHTML = '<button id="restartBtn">Restart</button>';
+    document.body.innerHTML = '<button id="restartBtn">Restart</button><button id="closeModal">Закрыть</button>';
 
     // Мокаем модель
     mockModel = {
@@ -19,6 +19,8 @@ describe('GameController', () => {
       reset: jest.fn(),
       updateRecord: jest.fn(),
       updateScore: jest.fn(),
+      updateMissed: jest.fn(),
+      resetMissed: jest.fn(),
       countdown: jest.fn(function () {
         this.timeLeft -= 1;
       }),
@@ -28,8 +30,10 @@ describe('GameController', () => {
     mockView = {
       createBoard: jest.fn(),
       renderScore: jest.fn(),
+      renderMissed: jest.fn(),
       renderRecord: jest.fn(),
       renderTimer: jest.fn(),
+      showModalMessage: jest.fn(),
       renderAnimationHammerCursor: jest.fn(),
       lockField: jest.fn(),
       getCell: jest.fn((index) => ({ innerHTML: '' })),
@@ -70,7 +74,7 @@ describe('GameController', () => {
     expect(mockView.lockField).toHaveBeenCalledWith(true);
     expect(mockModel.updateRecord).toHaveBeenCalled();
     expect(mockView.renderRecord).toHaveBeenCalledWith(mockModel.record);
-    expect(window.alert).toHaveBeenCalledWith(`Игра окончена! Ваш результат: ${mockModel.score}`);
+    expect(mockView.showModalMessage).toHaveBeenCalledWith(`Игра окончена! Ваш результат: ${mockModel.score}`);
     expect(clearInterval).toHaveBeenCalled(); // Проверяем, что интервал очищен
   });
 
