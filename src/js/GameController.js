@@ -23,7 +23,12 @@ export default class GameController {
     this.model.isActive = true;
     this._showGoblin();
 
-    this.gameInterval = setInterval(() => this._showGoblin(), 1000);
+    this.gameInterval = setInterval(() => {
+      this._showGoblin();
+      this.model.updateMissed(1);
+      this.view.renderMissed(this.model.missed);
+    }
+    , 1000);
     this.timerInterval = setInterval(() => this._countdown(), 1000);
   }
 
@@ -57,8 +62,6 @@ export default class GameController {
 
     this.currentGoblinCellIndex = randomIndex;
     this.view.getCell(randomIndex).innerHTML = `<img src="${goblinImagePath}" alt="Гоблин" />`;
-    this.model.updateMissed(1);
-    this.view.renderMissed(this.model.missed);
   }
 
   _removeGoblin() {
@@ -70,7 +73,7 @@ export default class GameController {
   _countdown() {
     this.model.countdown();
     this.view.renderTimer(this.model.timeLeft);
-    if (this.model.timeLeft <= 0 || this.model.missed === 6) {
+    if (this.model.timeLeft <= 0 || this.model.missed === 5) {
       this.stop();
     }
   }
@@ -89,8 +92,7 @@ export default class GameController {
       this.view.renderAnimationHammerCursor(true);
       this.view.renderScore(this.model.score);
       this._removeGoblin();
-      this.model.resetMissed();
-      this.view.renderMissed(this.model.missed);
+      this.model.updateMissed(-1);
     } else {
       this.model.updateMissed(1);
       this.view.renderMissed(this.model.missed);
